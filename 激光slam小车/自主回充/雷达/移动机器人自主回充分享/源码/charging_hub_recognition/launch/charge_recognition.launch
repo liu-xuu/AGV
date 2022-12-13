@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="charging_hub_recognition" type="charging_hub_recognition" name="charging_hub_recognition" output="screen" />
+
+</launch>
