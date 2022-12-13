@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="imu" name="imu_tf" type="imu_tf" output="screen" >
+    <param name="imu_topic"  value="/imu_data"/>
+    <param name="position_x"  value="0"/>
+    <param name="position_y"  value="0"/>
+    <param name="position_z"  value="0"/>
+
+  </node>
+</launch> 
