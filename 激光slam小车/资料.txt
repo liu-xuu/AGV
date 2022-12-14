@@ -6,3 +6,7 @@ https://github.com/RuPingCen/mick_robot
 
 蓝鲸机器人
 https://github.com/bluewhalerobot
+
+
+如何知道加速度计和陀螺仪的偏移量
+https://www.i2cdevlib.com/forums/topic/91-how-to-decide-gyro-and-accelerometer-offsett/
