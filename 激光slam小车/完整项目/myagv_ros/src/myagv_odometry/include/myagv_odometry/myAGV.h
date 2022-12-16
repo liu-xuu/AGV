@@ -8,6 +8,13 @@
 #include <geometry_msgs/TransformStamped.h>
 #include <tf/transform_broadcaster.h>
 #include <boost/asio.hpp>
+#include <sensor_msgs/Imu.h>
+
+
+//#define sampleFreq	20.5f				// sample frequency in Hz
+#define twoKpDef	1.0f				// (2.0f * 0.5f)	// 2 * proportional gain
+#define twoKiDef	0.0f				// (2.0f * 0.0f)	// 2 * integral gain
+
 
 
 class MyAGV
@@ -15,9 +22,12 @@ class MyAGV
 public:
 	MyAGV();
 	~MyAGV();
-
 	bool init();
+	float invSqrt(float number);
 	bool execute(double linearX, double linearY, double angularZ);
+    void MahonyAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+	void publisherOdom();
+	void publisherImuSensor();
 
 private:
 	bool readSpeed();
@@ -43,9 +53,10 @@ private:
 	double wy;
 	double wz;
 
+	float sampleFreq;
+    sensor_msgs::Imu imu_data;
 	ros::NodeHandle n;
-	ros::Publisher pub;
-	ros::Publisher pub_v;
+	ros::Publisher pub_odom,pub_v,pub_imu,pub;
 	tf::TransformBroadcaster odomBroadcaster;
 };
 

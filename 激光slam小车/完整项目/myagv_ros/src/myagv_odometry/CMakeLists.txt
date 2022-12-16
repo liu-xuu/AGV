@@ -157,6 +157,11 @@ add_executable(myagv_odometry_node
                src/myAGVSub.cpp)
 target_link_libraries(myagv_odometry_node ${catkin_LIBRARIES})
 
+add_executable(myagv_start 
+               src/myagv_start.cpp
+               src/myagv_start_sub.cpp)
+target_link_libraries(myagv_start ${catkin_LIBRARIES})
+
 add_executable(demo_dis_long 
                src/demo_dis_long.cpp)
 target_link_libraries(demo_dis_long ${catkin_LIBRARIES})
@@ -169,6 +174,10 @@ target_link_libraries(demo_rotation_angle ${catkin_LIBRARIES})
 add_executable(tf_transform
                src/tf_transform.cpp)
 target_link_libraries(tf_transform ${catkin_LIBRARIES})
+
+add_executable(showpath
+               src/showpath.cpp)
+target_link_libraries(showpath ${catkin_LIBRARIES})
 
 #############
 ## Install ##

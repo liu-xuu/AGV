@@ -141,6 +141,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/ubuntu/myagv_ros/build/myagv_odometry/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/myagv_ps2/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/myagv_urdf/cmake_install.cmake")
+  include("/home/ubuntu/myagv_ros/build/robot_pose_ekf/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/ydlidar_ros_driver/cmake_install.cmake")
 
 endif()

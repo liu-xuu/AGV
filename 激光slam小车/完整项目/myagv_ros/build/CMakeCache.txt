@@ -23,6 +23,48 @@ BUILD_GTEST:BOOL=OFF
 //Build shared libraries (DLLs).
 BUILD_SHARED_LIBS:BOOL=ON
 
+//Boost atomic library (debug)
+Boost_ATOMIC_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_atomic.so
+
+//Boost atomic library (release)
+Boost_ATOMIC_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_atomic.so
+
+//Boost chrono library (debug)
+Boost_CHRONO_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_chrono.so
+
+//Boost chrono library (release)
+Boost_CHRONO_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_chrono.so
+
+//Boost date_time library (debug)
+Boost_DATE_TIME_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_date_time.so
+
+//Boost date_time library (release)
+Boost_DATE_TIME_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_date_time.so
+
+//The directory containing a CMake configuration file for Boost.
+Boost_DIR:PATH=Boost_DIR-NOTFOUND
+
+//Path to a file.
+Boost_INCLUDE_DIR:PATH=/usr/include
+
+//Boost library directory DEBUG
+Boost_LIBRARY_DIR_DEBUG:PATH=/usr/lib/aarch64-linux-gnu
+
+//Boost library directory RELEASE
+Boost_LIBRARY_DIR_RELEASE:PATH=/usr/lib/aarch64-linux-gnu
+
+//Boost system library (debug)
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_system.so
+
+//Boost system library (release)
+Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_system.so
+
+//Boost thread library (debug)
+Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_thread.so
+
+//Boost thread library (release)
+Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_thread.so
+
 //List of ';' separated packages to exclude
 CATKIN_BLACKLIST_PACKAGES:STRING=
 
@@ -273,6 +315,9 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests-2.7
 
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python2
 
@@ -439,6 +484,18 @@ myagv_urdf_BINARY_DIR:STATIC=/home/ubuntu/myagv_ros/build/myagv_urdf
 //Value Computed by CMake
 myagv_urdf_SOURCE_DIR:STATIC=/home/ubuntu/myagv_ros/src/myagv_urdf
 
+//The directory containing a CMake configuration file for nav_msgs.
+nav_msgs_DIR:PATH=/opt/ros/melodic/share/nav_msgs/cmake
+
+//Path to a library.
+pkgcfg_lib_BFL_orocos-bfl:FILEPATH=/opt/ros/melodic/lib/liborocos-bfl.so
+
+//Value Computed by CMake
+robot_pose_ekf_BINARY_DIR:STATIC=/home/ubuntu/myagv_ros/build/robot_pose_ekf
+
+//Value Computed by CMake
+robot_pose_ekf_SOURCE_DIR:STATIC=/home/ubuntu/myagv_ros/src/robot_pose_ekf
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/melodic/share/rosconsole/cmake
 
@@ -459,6 +516,9 @@ rosgraph_msgs_DIR:PATH=/opt/ros/melodic/share/rosgraph_msgs/cmake
 
 //The directory containing a CMake configuration file for rospy.
 rospy_DIR:PATH=/opt/ros/melodic/share/rospy/cmake
+
+//The directory containing a CMake configuration file for rostest.
+rostest_DIR:PATH=/opt/ros/melodic/share/rostest/cmake
 
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/melodic/share/rostime/cmake
@@ -504,6 +564,69 @@ ydlidar_sdk_DIR:PATH=/usr/local/lib/cmake/ydlidar_sdk
 # INTERNAL cache entries
 ########################
 
+BFL_CFLAGS:INTERNAL=-I/opt/ros/melodic/include;-I
+BFL_CFLAGS_I:INTERNAL=
+BFL_CFLAGS_OTHER:INTERNAL=
+BFL_FOUND:INTERNAL=1
+BFL_INCLUDEDIR:INTERNAL=/opt/ros/melodic/include
+BFL_INCLUDE_DIRS:INTERNAL=/opt/ros/melodic/include
+BFL_LDFLAGS:INTERNAL=-L/opt/ros/melodic/lib;-lorocos-bfl
+BFL_LDFLAGS_OTHER:INTERNAL=
+BFL_LIBDIR:INTERNAL=/opt/ros/melodic/lib
+BFL_LIBRARIES:INTERNAL=orocos-bfl
+BFL_LIBRARY_DIRS:INTERNAL=/opt/ros/melodic/lib
+BFL_LIBS:INTERNAL=
+BFL_LIBS_L:INTERNAL=
+BFL_LIBS_OTHER:INTERNAL=
+BFL_LIBS_PATHS:INTERNAL=
+BFL_MODULE_NAME:INTERNAL=orocos-bfl
+BFL_PREFIX:INTERNAL=/opt/ros/melodic
+BFL_STATIC_CFLAGS:INTERNAL=-I/opt/ros/melodic/include;-I
+BFL_STATIC_CFLAGS_I:INTERNAL=
+BFL_STATIC_CFLAGS_OTHER:INTERNAL=
+BFL_STATIC_INCLUDE_DIRS:INTERNAL=/opt/ros/melodic/include
+BFL_STATIC_LDFLAGS:INTERNAL=-L/opt/ros/melodic/lib;-lorocos-bfl
+BFL_STATIC_LDFLAGS_OTHER:INTERNAL=
+BFL_STATIC_LIBDIR:INTERNAL=
+BFL_STATIC_LIBRARIES:INTERNAL=orocos-bfl
+BFL_STATIC_LIBRARY_DIRS:INTERNAL=/opt/ros/melodic/lib
+BFL_STATIC_LIBS:INTERNAL=
+BFL_STATIC_LIBS_L:INTERNAL=
+BFL_STATIC_LIBS_OTHER:INTERNAL=
+BFL_STATIC_LIBS_PATHS:INTERNAL=
+BFL_VERSION:INTERNAL=0.8.0
+BFL_orocos-bfl_INCLUDEDIR:INTERNAL=
+BFL_orocos-bfl_LIBDIR:INTERNAL=
+BFL_orocos-bfl_PREFIX:INTERNAL=
+BFL_orocos-bfl_VERSION:INTERNAL=
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_DEBUG
+Boost_ATOMIC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_RELEASE
+Boost_ATOMIC_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_DEBUG
+Boost_CHRONO_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_RELEASE
+Boost_CHRONO_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_DEBUG
+Boost_DATE_TIME_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_RELEASE
+Boost_DATE_TIME_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DIR
+Boost_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_INCLUDE_DIR
+Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_DEBUG
+Boost_LIBRARY_DIR_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_RELEASE
+Boost_LIBRARY_DIR_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_DEBUG
+Boost_SYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_RELEASE
+Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_DEBUG
+Boost_THREAD_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_RELEASE
+Boost_THREAD_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //catkin environment
 CATKIN_ENV:INTERNAL=/home/ubuntu/myagv_ros/build/catkin_generated/env_cached.sh
 CATKIN_TEST_RESULTS_DIR:INTERNAL=/home/ubuntu/myagv_ros/build/test_results
@@ -617,7 +740,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -660,6 +783,10 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding Boost
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/include][cfound components: thread chrono system date_time atomic ][v1.65.1()]
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.1()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python2][v2.7.17()]
 //Details about finding Threads
@@ -684,6 +811,8 @@ GTEST_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GTEST_MAIN_LIBRARY_DEBUG
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //This needs to be in PYTHONPATH when 'setup.py install' is called.
@@ -702,4 +831,21 @@ YDLIDAR_SDK_LIBRARIES:INTERNAL=ydlidar_sdk;pthread;rt
 YDLIDAR_SDK_LIBRARY_DIRS-ADVANCED:INTERNAL=1
 //YDLIDAR_SDK library directories
 YDLIDAR_SDK_LIBRARY_DIRS:INTERNAL=
+//Components requested for this build tree.
+_Boost_COMPONENTS_SEARCHED:INTERNAL=atomic;chrono;date_time;system;thread
+//Last used Boost_INCLUDE_DIR value.
+_Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/include
+//Last used Boost_LIBRARY_DIR_DEBUG value.
+_Boost_LIBRARY_DIR_DEBUG_LAST:INTERNAL=/usr/lib/aarch64-linux-gnu
+//Last used Boost_LIBRARY_DIR_RELEASE value.
+_Boost_LIBRARY_DIR_RELEASE_LAST:INTERNAL=/usr/lib/aarch64-linux-gnu
+//Last used Boost_NAMESPACE value.
+_Boost_NAMESPACE_LAST:INTERNAL=boost
+//Last used Boost_USE_MULTITHREADED value.
+_Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
+__pkg_config_arguments_BFL:INTERNAL=REQUIRED;orocos-bfl
+__pkg_config_checked_BFL:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_BFL_orocos-bfl
+pkgcfg_lib_BFL_orocos-bfl-ADVANCED:INTERNAL=1
+prefix_result:INTERNAL=/opt/ros/melodic/lib
 

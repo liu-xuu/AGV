@@ -20,8 +20,8 @@ double robot_v;//the linear_velocity with the robot
 void poseCallback(const nav_msgs::Odometry &p_msg){
     px = p_msg.pose.pose.position.x;
     py = p_msg.pose.pose.position.y;
-   // ROS_INFO("Robot walked %.2f m",px);
-    ROS_INFO("Robot walked %.2f m",py);
+    ROS_INFO("Robot walked %.2f m",px);
+    //ROS_INFO("Robot walked %.2f m",py);
 }
 
 int main(int argc,char** argv){
@@ -46,8 +46,8 @@ int main(int argc,char** argv){
         ros::spinOnce();
         if(is_start)
         {
-          //  ix = px;
-              iy = py;
+            ix = px;
+            //  iy = py;
             is_start =false;
         }
 
@@ -56,18 +56,18 @@ int main(int argc,char** argv){
 
             geometry_msgs::Twist com_msg;
             if( count > dis_long * 3 / 5){
-                //com_msg.linear.x = robot_v / 3;
-                com_msg.linear.y = robot_v / 4;
+                com_msg.linear.x = robot_v / 3;
+               // com_msg.linear.y = robot_v / 4;
             }
             else{
-               // com_msg.linear.x = robot_v;
-               com_msg.linear.y = robot_v;
+                com_msg.linear.x = robot_v;
+               //com_msg.linear.y = robot_v;
             }
            // ROS_INFO("Publish turtle velocity command[%.2f m/s,%.2f rad/s] distance: %.2f", com_msg.linear.x, com_msg.angular.z, count);
            ROS_INFO("Publish turtle velocity command[%.2f m/s,%.2f rad/s] distance: %.2f", com_msg.linear.y, com_msg.angular.z, count);
             command_pub.publish(com_msg);
-            //count = px - ix;
-             count = py - iy;
+            count = px - ix;
+            // count = py - iy;
         }
         if(count >= dis_long)
         {   

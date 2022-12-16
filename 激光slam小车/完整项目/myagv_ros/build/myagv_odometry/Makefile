@@ -108,18 +108,6 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/ubuntu/cmake-3.19.8-Linux-aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/ubuntu/cmake-3.19.8-Linux-aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -154,6 +142,18 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/ubuntu/cmake-3.19.8-Linux-aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/ubuntu/cmake-3.19.8-Linux-aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/ubuntu/myagv_ros/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/myagv_ros/build/CMakeFiles /home/ubuntu/myagv_ros/build/myagv_odometry//CMakeFiles/progress.marks
@@ -187,19 +187,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-myagv_odometry/CMakeFiles/demo_dis_long.dir/rule:
-	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/demo_dis_long.dir/rule
-.PHONY : myagv_odometry/CMakeFiles/demo_dis_long.dir/rule
+myagv_odometry/CMakeFiles/myagv_start.dir/rule:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/myagv_start.dir/rule
+.PHONY : myagv_odometry/CMakeFiles/myagv_start.dir/rule
 
 # Convenience name for target.
-demo_dis_long: myagv_odometry/CMakeFiles/demo_dis_long.dir/rule
+myagv_start: myagv_odometry/CMakeFiles/myagv_start.dir/rule
 
-.PHONY : demo_dis_long
+.PHONY : myagv_start
 
 # fast build rule for target.
-demo_dis_long/fast:
-	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/demo_dis_long.dir/build.make myagv_odometry/CMakeFiles/demo_dis_long.dir/build
-.PHONY : demo_dis_long/fast
+myagv_start/fast:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/build
+.PHONY : myagv_start/fast
+
+# Convenience name for target.
+myagv_odometry/CMakeFiles/showpath.dir/rule:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/showpath.dir/rule
+.PHONY : myagv_odometry/CMakeFiles/showpath.dir/rule
+
+# Convenience name for target.
+showpath: myagv_odometry/CMakeFiles/showpath.dir/rule
+
+.PHONY : showpath
+
+# fast build rule for target.
+showpath/fast:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath.dir/build.make myagv_odometry/CMakeFiles/showpath.dir/build
+.PHONY : showpath/fast
 
 # Convenience name for target.
 myagv_odometry/CMakeFiles/myagv_odometry_node.dir/rule:
@@ -215,6 +230,21 @@ myagv_odometry_node: myagv_odometry/CMakeFiles/myagv_odometry_node.dir/rule
 myagv_odometry_node/fast:
 	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_odometry_node.dir/build.make myagv_odometry/CMakeFiles/myagv_odometry_node.dir/build
 .PHONY : myagv_odometry_node/fast
+
+# Convenience name for target.
+myagv_odometry/CMakeFiles/demo_dis_long.dir/rule:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/demo_dis_long.dir/rule
+.PHONY : myagv_odometry/CMakeFiles/demo_dis_long.dir/rule
+
+# Convenience name for target.
+demo_dis_long: myagv_odometry/CMakeFiles/demo_dis_long.dir/rule
+
+.PHONY : demo_dis_long
+
+# fast build rule for target.
+demo_dis_long/fast:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/demo_dis_long.dir/build.make myagv_odometry/CMakeFiles/demo_dis_long.dir/build
+.PHONY : demo_dis_long/fast
 
 # Convenience name for target.
 myagv_odometry/CMakeFiles/tf_transform.dir/rule:
@@ -354,6 +384,87 @@ src/myAGVSub.cpp.s:
 	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_odometry_node.dir/build.make myagv_odometry/CMakeFiles/myagv_odometry_node.dir/src/myAGVSub.cpp.s
 .PHONY : src/myAGVSub.cpp.s
 
+src/myagv_start.o: src/myagv_start.cpp.o
+
+.PHONY : src/myagv_start.o
+
+# target to build an object file
+src/myagv_start.cpp.o:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start.cpp.o
+.PHONY : src/myagv_start.cpp.o
+
+src/myagv_start.i: src/myagv_start.cpp.i
+
+.PHONY : src/myagv_start.i
+
+# target to preprocess a source file
+src/myagv_start.cpp.i:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start.cpp.i
+.PHONY : src/myagv_start.cpp.i
+
+src/myagv_start.s: src/myagv_start.cpp.s
+
+.PHONY : src/myagv_start.s
+
+# target to generate assembly for a file
+src/myagv_start.cpp.s:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start.cpp.s
+.PHONY : src/myagv_start.cpp.s
+
+src/myagv_start_sub.o: src/myagv_start_sub.cpp.o
+
+.PHONY : src/myagv_start_sub.o
+
+# target to build an object file
+src/myagv_start_sub.cpp.o:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start_sub.cpp.o
+.PHONY : src/myagv_start_sub.cpp.o
+
+src/myagv_start_sub.i: src/myagv_start_sub.cpp.i
+
+.PHONY : src/myagv_start_sub.i
+
+# target to preprocess a source file
+src/myagv_start_sub.cpp.i:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start_sub.cpp.i
+.PHONY : src/myagv_start_sub.cpp.i
+
+src/myagv_start_sub.s: src/myagv_start_sub.cpp.s
+
+.PHONY : src/myagv_start_sub.s
+
+# target to generate assembly for a file
+src/myagv_start_sub.cpp.s:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start_sub.cpp.s
+.PHONY : src/myagv_start_sub.cpp.s
+
+src/showpath.o: src/showpath.cpp.o
+
+.PHONY : src/showpath.o
+
+# target to build an object file
+src/showpath.cpp.o:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath.dir/build.make myagv_odometry/CMakeFiles/showpath.dir/src/showpath.cpp.o
+.PHONY : src/showpath.cpp.o
+
+src/showpath.i: src/showpath.cpp.i
+
+.PHONY : src/showpath.i
+
+# target to preprocess a source file
+src/showpath.cpp.i:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath.dir/build.make myagv_odometry/CMakeFiles/showpath.dir/src/showpath.cpp.i
+.PHONY : src/showpath.cpp.i
+
+src/showpath.s: src/showpath.cpp.s
+
+.PHONY : src/showpath.s
+
+# target to generate assembly for a file
+src/showpath.cpp.s:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath.dir/build.make myagv_odometry/CMakeFiles/showpath.dir/src/showpath.cpp.s
+.PHONY : src/showpath.cpp.s
+
 src/tf_transform.o: src/tf_transform.cpp.o
 
 .PHONY : src/tf_transform.o
@@ -397,6 +508,8 @@ help:
 	@echo "... demo_dis_long"
 	@echo "... demo_rotation_angle"
 	@echo "... myagv_odometry_node"
+	@echo "... myagv_start"
+	@echo "... showpath"
 	@echo "... tf_transform"
 	@echo "... src/demo_dis_long.o"
 	@echo "... src/demo_dis_long.i"
@@ -410,6 +523,15 @@ help:
 	@echo "... src/myAGVSub.o"
 	@echo "... src/myAGVSub.i"
 	@echo "... src/myAGVSub.s"
+	@echo "... src/myagv_start.o"
+	@echo "... src/myagv_start.i"
+	@echo "... src/myagv_start.s"
+	@echo "... src/myagv_start_sub.o"
+	@echo "... src/myagv_start_sub.i"
+	@echo "... src/myagv_start_sub.s"
+	@echo "... src/showpath.o"
+	@echo "... src/showpath.i"
+	@echo "... src/showpath.s"
 	@echo "... src/tf_transform.o"
 	@echo "... src/tf_transform.i"
 	@echo "... src/tf_transform.s"
