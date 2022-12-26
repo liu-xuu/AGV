@@ -65,7 +65,10 @@ bool MyAGV::init()
     sp.set_option(boost::asio::serial_port::parity(boost::asio::serial_port::parity::none));
     sp.set_option(boost::asio::serial_port::stop_bits(boost::asio::serial_port::stop_bits::one));
     sp.set_option(boost::asio::serial_port::character_size(8));
-
+    Gyroscope_Xdata_Offset = 0.0f; 
+  	Gyroscope_Ydata_Offset = 0.0f; 
+  	Gyroscope_Zdata_Offset = 0.0f;
+    Offest_Count = 0;
     ros::Time::init();
   //  currentTime = ros::Time::now();
     lastTime = ros::Time::now();
@@ -338,6 +341,21 @@ float MyAGV::invSqrt(float number)
 	return y;
 }
 
+void MyAGV::accelerometerOffset(float gx, float gy, float gz)
+{
+	Gyroscope_Xdata_Offset += gx; 
+  	Gyroscope_Ydata_Offset += gy; 
+  	Gyroscope_Zdata_Offset += gz;
+
+  	if (Offest_Count == OFFSET_COUNT)
+  	{
+  		Gyroscope_Xdata_Offset = Gyroscope_Xdata_Offset / OFFSET_COUNT;
+  		Gyroscope_Ydata_Offset = Gyroscope_Ydata_Offset / OFFSET_COUNT;
+  		Gyroscope_Zdata_Offset = Gyroscope_Zdata_Offset / OFFSET_COUNT;
+  	}
+}
+
+
 volatile float twoKp = twoKpDef;											// 2 * proportional gain (Kp)
 volatile float twoKi = twoKiDef;											// 2 * integral gain (Ki)
 volatile float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;					// quaternion of sensor frame relative to auxiliary frame
@@ -490,9 +508,11 @@ bool MyAGV::execute(double linearX, double linearY, double angularZ)
 
       
       currentTime = ros::Time::now();
-
+      // readSpeed();
        double dt = (currentTime - lastTime).toSec();
               sampleFreq = 1.0f/dt;
+    if (true ==  readSpeed()) 
+    {
        double delta_x = (vx * cos(theta) - vy * sin(theta)) * dt;
        double delta_y = (vx * sin(theta) + vy * cos(theta)) * dt;
        double delta_th = vtheta * dt;
@@ -500,13 +520,27 @@ bool MyAGV::execute(double linearX, double linearY, double angularZ)
        x += delta_x;
        y += delta_y;
        theta += delta_th;
-
-       MahonyAHRSupdateIMU(0.0, 0.0, imu_data.angular_velocity.z, 0.0, 0.0, imu_data.linear_acceleration.z);
-       writeSpeed(linearX, linearY, angularZ);
-       readSpeed(); // easy to report error 
-       publisherOdom();
-       publisherImuSensor();
+       if (Offest_Count < OFFSET_COUNT)
+			{
+				Offest_Count++;
+				accelerometerOffset(imu_data.angular_velocity.x, imu_data.angular_velocity.y, imu_data.angular_velocity.z);
+			}
+			else
+			{
+				Offest_Count = OFFSET_COUNT;
+               // std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
+               // std::cout <<"imu0=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
+				imu_data.angular_velocity.x = imu_data.angular_velocity.x - Gyroscope_Xdata_Offset;
+				imu_data.angular_velocity.y = imu_data.angular_velocity.y - Gyroscope_Ydata_Offset;
+				imu_data.angular_velocity.z = imu_data.angular_velocity.z - Gyroscope_Zdata_Offset;
+               // std::cout <<"imu=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
+                MahonyAHRSupdateIMU(0.0, 0.0, imu_data.angular_velocity.z, 0.0, 0.0, imu_data.linear_acceleration.z);
+                writeSpeed(linearX, linearY, angularZ);
+                publisherOdom();
+                publisherImuSensor();
+            }
+    } 
        lastTime = currentTime;
-     
-
+       
+        
 }

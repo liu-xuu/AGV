@@ -15,7 +15,7 @@
 #define twoKpDef	1.0f				// (2.0f * 0.5f)	// 2 * proportional gain
 #define twoKiDef	0.0f				// (2.0f * 0.0f)	// 2 * integral gain
 
-
+#define OFFSET_COUNT 	40
 
 class MyAGV
 {
@@ -26,6 +26,7 @@ public:
 	float invSqrt(float number);
 	bool execute(double linearX, double linearY, double angularZ);
     void MahonyAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+	void accelerometerOffset(float gx, float gy, float gz);
 	void publisherOdom();
 	void publisherImuSensor();
 
@@ -52,8 +53,12 @@ private:
 	double wx;
 	double wy;
 	double wz;
-
+    
+	float Gyroscope_Xdata_Offset;
+	float Gyroscope_Ydata_Offset;
+	float Gyroscope_Zdata_Offset;
 	float sampleFreq;
+	unsigned short Offest_Count;
     sensor_msgs::Imu imu_data;
 	ros::NodeHandle n;
 	ros::Publisher pub_odom,pub_v,pub_imu,pub;
