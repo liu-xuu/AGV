@@ -1,46 +1,40 @@
 #ifndef GOAL_SENDING_H
 #define GOAL_SENDING_H
  
-#include <actionlib/client/simple_action_client.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <jsoncpp/json/json.h>
-#include <move_base_msgs/MoveBaseAction.h>
 #include <ros/ros.h>
+#include <move_base_msgs/MoveBaseAction.h>   
+#include <actionlib/client/simple_action_client.h>   
+#include "std_msgs/String.h"
+#include <sstream>
+#include <iostream>
+#include <signal.h>  
 #include <fstream>
+#include <vector>
+#include <jsoncpp/json/json.h>
 
-typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> Client;
- 
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+using namespace std;
 class GoalSending {
  private:
 
-  ros::NodeHandle nh_;
-  ros::Publisher goal_pub_;
-  ros::Timer timer_;
-  geometry_msgs::PoseStamped target_pose_;
-  move_base_msgs::MoveBaseGoal goal_;
+  ros::NodeHandle n;
+  move_base_msgs::MoveBaseGoal goal;
 
-  Client ac_;
- 
-  bool initialized_;
-  int count = 0;
   Json::Reader reader_;
   Json::Value root_;
   std::ifstream in_;
  
 
-  double goal_point_[4][2];
+  vector<double> goal_point = vector<double> (6,0);
 
-  void goalPointPub(const ros::TimerEvent& event);
 
-  void openFile();
-
-  void activeCb();
-  void doneCb(const actionlib::SimpleClientGoalState& state,
-              const move_base_msgs::MoveBaseResultConstPtr& result);
+ 
+  
  
  public:
-  GoalSending();
-  ~GoalSending();
+    void goalPointPub();
+    void openfile();
+ //   void DoShutdown(int sig);
 };
  
 #endif  

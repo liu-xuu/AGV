@@ -19,7 +19,14 @@ class  LocationRecorder(QWidget):
             self.robot_record_pose = None
             self.package_path = None
             self.init_rospack()
+            self.setGeometry(300, 300, 800, 800) 
+            self.setWindowTitle('charging pile location') 
             self.tf_listener = tf.TransformListener()
+            quit = QPushButton('Close', self)            
+            quit.setGeometry(680, 650, 90, 90)           
+            quit.setStyleSheet("background-color: red")  
+            quit.clicked.connect(self.close)             
+            quit.clicked.connect(self.close) 
 
             self.show()
       
@@ -37,7 +44,7 @@ class  LocationRecorder(QWidget):
       def init_ui(self):
             self.layout = QVBoxLayout()
             self.order_layout = QHBoxLayout()
-            self.order_layout.addWidget(QLabel("location id"))
+            self.order_layout.addWidget(QLabel("charging pile id"))
             self.order_edit = QLineEdit("")
             self.order_layout.addWidget(self.order_edit)
 
@@ -84,7 +91,7 @@ class  LocationRecorder(QWidget):
                         "ori_x" : ori[0],
                         "ori_y" : ori[1],
                         "ori_z" : ori[2],
-                        "ori_w": ori[3]
+                        "ori_w":  ori[3]
                   }
                   self.current_robot_pose = msg_dict
                   return True
