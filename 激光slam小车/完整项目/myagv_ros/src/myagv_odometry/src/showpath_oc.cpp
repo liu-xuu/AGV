@@ -13,16 +13,16 @@ public:
     SubscribeAndPublish()
     {
         pub_=n_.advertise<nav_msgs::Path>("my_trajectory",1, true);
-       // sub_=n_.subscribe("/odom_ekf",1,&SubscribeAndPublish::callback,this);
-        sub_=n_.subscribe("/odom",1,&SubscribeAndPublish::callback,this);
+        sub_=n_.subscribe("/odom_ekf",1,&SubscribeAndPublish::callback,this);
+       // sub_=n_.subscribe("/odom",1,&SubscribeAndPublish::callback,this);
     }
     void callback(const nav_msgs::Odometry input)
     {
         geometry_msgs::PoseStamped pose;
 
         pose.header.stamp=input.header.stamp;
-        pose.header.frame_id="odom";
-      //  pose.header.frame_id="odom_combined";
+       // pose.header.frame_id="odom";
+        pose.header.frame_id="odom_combined";
         pose.pose.position.x=input.pose.pose.position.x;
         pose.pose.position.y=input.pose.pose.position.y;
         pose.pose.position.z=input.pose.pose.position.z;
@@ -32,8 +32,8 @@ public:
         pose.pose.orientation.w=input.pose.pose.orientation.w;
 
         path.header.stamp=input.header.stamp;
-       // path.header.frame_id="odom_combined";
-        path.header.frame_id="odom";
+        path.header.frame_id="odom_combined";
+       // path.header.frame_id="odom";
         path.poses.push_back(pose);
         pub_.publish(path);
     }

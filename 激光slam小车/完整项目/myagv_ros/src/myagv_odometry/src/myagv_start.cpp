@@ -157,7 +157,7 @@ bool MyAGV::readSpeed()
     }
     if (ret != 16) {
         ROS_ERROR("Read error");
-        return false;
+     //   return false;
     }
     // for (int i = 0; i < ret; ++i) {
     //     std::cout << std::hex << std::setfill('0') << std::setw(2) << (int)(buf[i]) << " ";
@@ -211,7 +211,7 @@ bool MyAGV::readSpeed()
     if (check % 256 != buf[index + 15])
 	{
 		ROS_ERROR("error 3!");	
-    	return false;
+    //	return false;
 	}
 
     vx = (static_cast<double>(buf[index]) - 128.0) * 0.01;
@@ -528,12 +528,12 @@ bool MyAGV::execute(double linearX, double linearY, double angularZ)
 			else
 			{
 				Offest_Count = OFFSET_COUNT;
-               // std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
-               // std::cout <<"imu0=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
+                std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
+                std::cout <<"imu0=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
 				imu_data.angular_velocity.x = imu_data.angular_velocity.x - Gyroscope_Xdata_Offset;
 				imu_data.angular_velocity.y = imu_data.angular_velocity.y - Gyroscope_Ydata_Offset;
 				imu_data.angular_velocity.z = imu_data.angular_velocity.z - Gyroscope_Zdata_Offset;
-               // std::cout <<"imu=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
+                std::cout <<"imu=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
                 MahonyAHRSupdateIMU(0.0, 0.0, imu_data.angular_velocity.z, 0.0, 0.0, imu_data.linear_acceleration.z);
                 writeSpeed(linearX, linearY, angularZ);
                 publisherOdom();

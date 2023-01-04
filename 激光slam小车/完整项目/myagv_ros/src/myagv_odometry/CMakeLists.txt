@@ -179,6 +179,16 @@ add_executable(showpath
                src/showpath.cpp)
 target_link_libraries(showpath ${catkin_LIBRARIES})
 
+add_executable(showpath_oc
+               src/showpath_oc.cpp)
+target_link_libraries(showpath_oc ${catkin_LIBRARIES})
+
+add_executable(odomc_out_and_back
+               src/odomc_out_and_back.cpp)
+target_link_libraries(odomc_out_and_back ${catkin_LIBRARIES})
+
+
+
 #############
 ## Install ##
 #############
