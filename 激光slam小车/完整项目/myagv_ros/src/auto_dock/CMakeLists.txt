@@ -49,6 +49,12 @@ target_link_libraries(goal_sending
 )
 
 
+add_executable( goal_sending_0 src/goal_sending_0.cpp)
+target_link_libraries(goal_sending_0
+  ${catkin_LIBRARIES}
+  ${JSONCPP_LIBRARIES}
+)
+
 add_executable( openfile src/openfile.cpp)
 target_link_libraries(openfile 
   ${catkin_LIBRARIES}

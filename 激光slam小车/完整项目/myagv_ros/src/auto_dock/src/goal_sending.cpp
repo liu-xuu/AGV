@@ -11,8 +11,8 @@ void GoalSending::DoShutdown(int sig)
 
 void GoalSending::openfile()
 {
-  
-      in_.open( "/home/ubuntu/myagv_ros/src/auto_dock/data/0.json",std::ios::binary);
+      
+      in_.open( g,std::ios::in | std::ios::binary);
       if (!in_.is_open())
        {
        std::cout << "Error opening file\n" << std::endl;
@@ -75,7 +75,22 @@ void GoalSending::goalPointPub()
 }
 int main(int argc, char** argv){
     ros::init(argc, argv, "a_goals_sender"); 
+    ros::NodeHandle n;
     GoalSending goal;
+    n.param<std::string>("file_name", g, "/home/ubuntu/myagv_ros/src/auto_dock/data/0.json");
+    /**
+    n.setParam("file_name", g);
+    if(n.getParam("file_name", g)){
+
+        ROS_INFO("Got param ");
+    }
+    else
+     {
+        ROS_ERROR("Failed to get param 'file_name'");
+     } 
+
+    std::cout << "g=" << g.c_str << std::endl;
+    **/
     goal.openfile();
    // signal(SIGINT, goal.DoShutdown);
     ros::Rate loop_rate(100); 

@@ -187,6 +187,36 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+myagv_odometry/CMakeFiles/odomc_out_and_back.dir/rule:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/odomc_out_and_back.dir/rule
+.PHONY : myagv_odometry/CMakeFiles/odomc_out_and_back.dir/rule
+
+# Convenience name for target.
+odomc_out_and_back: myagv_odometry/CMakeFiles/odomc_out_and_back.dir/rule
+
+.PHONY : odomc_out_and_back
+
+# fast build rule for target.
+odomc_out_and_back/fast:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/odomc_out_and_back.dir/build.make myagv_odometry/CMakeFiles/odomc_out_and_back.dir/build
+.PHONY : odomc_out_and_back/fast
+
+# Convenience name for target.
+myagv_odometry/CMakeFiles/showpath_oc.dir/rule:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/showpath_oc.dir/rule
+.PHONY : myagv_odometry/CMakeFiles/showpath_oc.dir/rule
+
+# Convenience name for target.
+showpath_oc: myagv_odometry/CMakeFiles/showpath_oc.dir/rule
+
+.PHONY : showpath_oc
+
+# fast build rule for target.
+showpath_oc/fast:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath_oc.dir/build.make myagv_odometry/CMakeFiles/showpath_oc.dir/build
+.PHONY : showpath_oc/fast
+
+# Convenience name for target.
 myagv_odometry/CMakeFiles/myagv_start.dir/rule:
 	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myagv_odometry/CMakeFiles/myagv_start.dir/rule
 .PHONY : myagv_odometry/CMakeFiles/myagv_start.dir/rule
@@ -438,6 +468,33 @@ src/myagv_start_sub.cpp.s:
 	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/myagv_start.dir/build.make myagv_odometry/CMakeFiles/myagv_start.dir/src/myagv_start_sub.cpp.s
 .PHONY : src/myagv_start_sub.cpp.s
 
+src/odomc_out_and_back.o: src/odomc_out_and_back.cpp.o
+
+.PHONY : src/odomc_out_and_back.o
+
+# target to build an object file
+src/odomc_out_and_back.cpp.o:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/odomc_out_and_back.dir/build.make myagv_odometry/CMakeFiles/odomc_out_and_back.dir/src/odomc_out_and_back.cpp.o
+.PHONY : src/odomc_out_and_back.cpp.o
+
+src/odomc_out_and_back.i: src/odomc_out_and_back.cpp.i
+
+.PHONY : src/odomc_out_and_back.i
+
+# target to preprocess a source file
+src/odomc_out_and_back.cpp.i:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/odomc_out_and_back.dir/build.make myagv_odometry/CMakeFiles/odomc_out_and_back.dir/src/odomc_out_and_back.cpp.i
+.PHONY : src/odomc_out_and_back.cpp.i
+
+src/odomc_out_and_back.s: src/odomc_out_and_back.cpp.s
+
+.PHONY : src/odomc_out_and_back.s
+
+# target to generate assembly for a file
+src/odomc_out_and_back.cpp.s:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/odomc_out_and_back.dir/build.make myagv_odometry/CMakeFiles/odomc_out_and_back.dir/src/odomc_out_and_back.cpp.s
+.PHONY : src/odomc_out_and_back.cpp.s
+
 src/showpath.o: src/showpath.cpp.o
 
 .PHONY : src/showpath.o
@@ -464,6 +521,33 @@ src/showpath.s: src/showpath.cpp.s
 src/showpath.cpp.s:
 	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath.dir/build.make myagv_odometry/CMakeFiles/showpath.dir/src/showpath.cpp.s
 .PHONY : src/showpath.cpp.s
+
+src/showpath_oc.o: src/showpath_oc.cpp.o
+
+.PHONY : src/showpath_oc.o
+
+# target to build an object file
+src/showpath_oc.cpp.o:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath_oc.dir/build.make myagv_odometry/CMakeFiles/showpath_oc.dir/src/showpath_oc.cpp.o
+.PHONY : src/showpath_oc.cpp.o
+
+src/showpath_oc.i: src/showpath_oc.cpp.i
+
+.PHONY : src/showpath_oc.i
+
+# target to preprocess a source file
+src/showpath_oc.cpp.i:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath_oc.dir/build.make myagv_odometry/CMakeFiles/showpath_oc.dir/src/showpath_oc.cpp.i
+.PHONY : src/showpath_oc.cpp.i
+
+src/showpath_oc.s: src/showpath_oc.cpp.s
+
+.PHONY : src/showpath_oc.s
+
+# target to generate assembly for a file
+src/showpath_oc.cpp.s:
+	cd /home/ubuntu/myagv_ros/build && $(MAKE) $(MAKESILENT) -f myagv_odometry/CMakeFiles/showpath_oc.dir/build.make myagv_odometry/CMakeFiles/showpath_oc.dir/src/showpath_oc.cpp.s
+.PHONY : src/showpath_oc.cpp.s
 
 src/tf_transform.o: src/tf_transform.cpp.o
 
@@ -509,7 +593,9 @@ help:
 	@echo "... demo_rotation_angle"
 	@echo "... myagv_odometry_node"
 	@echo "... myagv_start"
+	@echo "... odomc_out_and_back"
 	@echo "... showpath"
+	@echo "... showpath_oc"
 	@echo "... tf_transform"
 	@echo "... src/demo_dis_long.o"
 	@echo "... src/demo_dis_long.i"
@@ -529,9 +615,15 @@ help:
 	@echo "... src/myagv_start_sub.o"
 	@echo "... src/myagv_start_sub.i"
 	@echo "... src/myagv_start_sub.s"
+	@echo "... src/odomc_out_and_back.o"
+	@echo "... src/odomc_out_and_back.i"
+	@echo "... src/odomc_out_and_back.s"
 	@echo "... src/showpath.o"
 	@echo "... src/showpath.i"
 	@echo "... src/showpath.s"
+	@echo "... src/showpath_oc.o"
+	@echo "... src/showpath_oc.i"
+	@echo "... src/showpath_oc.s"
 	@echo "... src/tf_transform.o"
 	@echo "... src/tf_transform.i"
 	@echo "... src/tf_transform.s"

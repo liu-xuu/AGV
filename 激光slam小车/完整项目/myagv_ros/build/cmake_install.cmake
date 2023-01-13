@@ -137,6 +137,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ubuntu/myagv_ros/build/gtest/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/myagv_teleop/cmake_install.cmake")
+  include("/home/ubuntu/myagv_ros/build/auto_dock/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/myagv_navigation/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/myagv_odometry/cmake_install.cmake")
   include("/home/ubuntu/myagv_ros/build/myagv_ps2/cmake_install.cmake")

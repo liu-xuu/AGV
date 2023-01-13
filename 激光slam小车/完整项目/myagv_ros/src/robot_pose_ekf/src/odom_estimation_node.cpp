@@ -78,7 +78,9 @@ namespace estimation
     nh_private.param("base_footprint_frame", base_footprint_frame_, std::string("base_footprint"));
     nh_private.param("sensor_timeout", timeout_, 1.0);
     nh_private.param("odom_used", odom_used_, true);
+    nh_private.param("odom_data", odom_data_, std::string("/odom_data"));//odom_data_,imu_data_
     nh_private.param("imu_used",  imu_used_, true);
+        nh_private.param("imu_data",  imu_data_, std::string("/imu_data"));
     nh_private.param("vo_used",   vo_used_, true);
     nh_private.param("gps_used",   gps_used_, false);
     nh_private.param("debug",   debug_, false);
@@ -100,8 +102,10 @@ namespace estimation
 
     timer_ = nh_private.createTimer(ros::Duration(1.0/max(freq,1.0)), &OdomEstimationNode::spin, this);
 
-    // advertise our estimation
-    pose_pub_ = nh_private.advertise<geometry_msgs::PoseWithCovarianceStamped>("odom_combined", 10);
+    //todo  发布odom  advertise our estimation sukai
+   // pose_pub_ = nh_private.advertise<geometry_msgs::PoseWithCovarianceStamped>("odom_combined", 10);
+      pose_pub_ = nh_private.advertise<nav_msgs::Odometry>("odom_combined", 10);
+
 
     // initialize
     filter_stamp_ = Time::now();
@@ -109,14 +113,15 @@ namespace estimation
     // subscribe to odom messages
     if (odom_used_){
       ROS_DEBUG("Odom sensor can be used");
-      odom_sub_ = nh.subscribe("odom", 10, &OdomEstimationNode::odomCallback, this);
+      //todo 订阅odom sukai
+      odom_sub_ = nh.subscribe(odom_data_, 10, &OdomEstimationNode::odomCallback, this);
     }
     else ROS_DEBUG("Odom sensor will NOT be used");
 
     // subscribe to imu messages
     if (imu_used_){
       ROS_DEBUG("Imu sensor can be used");
-      imu_sub_ = nh.subscribe("imu_data", 10,  &OdomEstimationNode::imuCallback, this);
+      imu_sub_ = nh.subscribe(imu_data_, 10,  &OdomEstimationNode::imuCallback, this);
     }
     else ROS_DEBUG("Imu sensor will NOT be used");
 
@@ -169,11 +174,12 @@ namespace estimation
 
 
 
-  // callback function for odom data
+  //todo callback function for odom data
   void OdomEstimationNode::odomCallback(const OdomConstPtr& odom)
   {
     odom_callback_counter_++;
-
+    //todo sukai 赋值
+    odomecallbackmsg=*odom;
     ROS_DEBUG("Odom callback at time %f ", ros::Time::now().toSec());
     assert(odom_used_);
 
@@ -186,7 +192,7 @@ namespace estimation
     for (unsigned int i=0; i<6; i++)
       for (unsigned int j=0; j<6; j++)
         odom_covariance_(i+1, j+1) = odom->pose.covariance[6*i+j];
-
+    // odom_estimation.cpp 334
     my_filter_.addMeasurement(StampedTransform(odom_meas_.inverse(), odom_stamp_, base_footprint_frame_, "wheelodom"), odom_covariance_);
     
     // activate odom
@@ -431,7 +437,39 @@ namespace estimation
           
           // output most recent estimate and relative covariance
           my_filter_.getEstimate(output_);
-          pose_pub_.publish(output_);
+          //todo sukai
+          nav_msgs::Odometry odomMsgs;
+
+            odomMsgs.header.frame_id=output_.header.frame_id;
+            odomMsgs.header.seq=output_.header.seq;
+            odomMsgs.header.stamp=Time::now();
+            for (unsigned int i=0; i<6; i++)
+                for (unsigned int j=0; j<6; j++)
+                    odomMsgs.pose.covariance[6*i+j] = output_.pose.covariance[6*i+j];
+
+            odomMsgs.pose.pose.position.x=output_.pose.pose.position.x;
+            odomMsgs.pose.pose.position.y=output_.pose.pose.position.y;
+            odomMsgs.pose.pose.position.z=output_.pose.pose.position.z;
+            odomMsgs.pose.pose.orientation.x=output_.pose.pose.orientation.x;
+            odomMsgs.pose.pose.orientation.y=output_.pose.pose.orientation.y;
+            odomMsgs.pose.pose.orientation.z=output_.pose.pose.orientation.z;
+            odomMsgs.pose.pose.orientation.w=output_.pose.pose.orientation.w;
+            odomMsgs.twist.twist.linear.x=odomecallbackmsg.twist.twist.linear.x;
+            odomMsgs.twist.twist.linear.y=odomecallbackmsg.twist.twist.linear.y;
+            odomMsgs.twist.twist.linear.z=odomecallbackmsg.twist.twist.linear.z;
+            odomMsgs.twist.twist.angular.x=odomecallbackmsg.twist.twist.angular.x;
+            odomMsgs.twist.twist.angular.y=odomecallbackmsg.twist.twist.angular.y;
+            odomMsgs.twist.twist.angular.z=odomecallbackmsg.twist.twist.angular.z;
+            /**
+            for (unsigned int i=0; i<6; i++)
+                for (unsigned int j=0; j<6; j++)
+                    odomMsgs.twist.covariance[6*i+j] = odomecallbackmsg.twist.covariance[6*i+j];
+            */
+
+            //sukai
+            pose_pub_.publish(odomMsgs);
+
+          // pose_pub_.publish(output_);
           ekf_sent_counter_++;
           
           // broadcast most recent estimate to TransformArray

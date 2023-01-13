@@ -12,7 +12,7 @@ class SubscribeAndPublish
 public:
     SubscribeAndPublish()
     {
-        pub_=n_.advertise<nav_msgs::Path>("my_trajectory",1, true);
+        pub_=n_.advertise<nav_msgs::Path>("my_trajectory_oc",1, true);
         sub_=n_.subscribe("/odom_ekf",1,&SubscribeAndPublish::callback,this);
        // sub_=n_.subscribe("/odom",1,&SubscribeAndPublish::callback,this);
     }
@@ -47,7 +47,7 @@ private:
 };
 main (int argc, char **argv)
 {
-    ros::init (argc, argv, "showpath");
+    ros::init (argc, argv, "showpath_oc");
     SubscribeAndPublish SAP;
     ros::spin();
     return 0;

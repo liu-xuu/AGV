@@ -73,6 +73,7 @@ bool MyAGV::init()
   //  currentTime = ros::Time::now();
     lastTime = ros::Time::now();
     pub_imu =  n.advertise<sensor_msgs::Imu>("imu_data", 20);
+    pub_imu_raw =  n.advertise<sensor_msgs::Imu>("imu_raw_data", 20);
     pub_odom = n.advertise<nav_msgs::Odometry>("odom", 50);
     pub_v = n.advertise<std_msgs::Int8>("Voltage", 1000);
     restore(); //first restore,abort current err,don't restore
@@ -157,7 +158,7 @@ bool MyAGV::readSpeed()
     }
     if (ret != 16) {
         ROS_ERROR("Read error");
-     //   return false;
+        return false;
     }
     // for (int i = 0; i < ret; ++i) {
     //     std::cout << std::hex << std::setfill('0') << std::setw(2) << (int)(buf[i]) << " ";
@@ -211,7 +212,7 @@ bool MyAGV::readSpeed()
     if (check % 256 != buf[index + 15])
 	{
 		ROS_ERROR("error 3!");	
-    //	return false;
+    	return false;
 	}
 
     vx = (static_cast<double>(buf[index]) - 128.0) * 0.01;
@@ -346,6 +347,7 @@ void MyAGV::accelerometerOffset(float gx, float gy, float gz)
 	Gyroscope_Xdata_Offset += gx; 
   	Gyroscope_Ydata_Offset += gy; 
   	Gyroscope_Zdata_Offset += gz;
+   // std::cout << "data" << Gyroscope_Xdata_Offset << Gyroscope_Ydata_Offset << Gyroscope_Zdata_Offset << std::endl;
 
   	if (Offest_Count == OFFSET_COUNT)
   	{
@@ -464,7 +466,28 @@ void MyAGV::publisherImuSensor()
 
 	pub_imu.publish(ImuSensor); 
 }
+void MyAGV::publisherImuSensorRaw()
+{
+	sensor_msgs::Imu ImuSensorRaw;
 
+	ImuSensorRaw.header.stamp = ros::Time::now(); 
+	ImuSensorRaw.header.frame_id = "/imu_raw";
+
+	ImuSensorRaw.orientation.x = 0.0; 
+	ImuSensorRaw.orientation.y = 0.0; 
+	ImuSensorRaw.orientation.z = 0.0;
+	ImuSensorRaw.orientation.w = 1.0;
+
+	ImuSensorRaw.angular_velocity.x = imu_data.angular_velocity.x;		
+	ImuSensorRaw.angular_velocity.y = imu_data.angular_velocity.y;		
+	ImuSensorRaw.angular_velocity.z = imu_data.angular_velocity.z;
+
+	ImuSensorRaw.linear_acceleration.x = imu_data.linear_acceleration.x; 
+	ImuSensorRaw.linear_acceleration.y = imu_data.linear_acceleration.y; 
+	ImuSensorRaw.linear_acceleration.z = imu_data.linear_acceleration.z;  
+
+	pub_imu.publish(ImuSensorRaw); 
+}
 void MyAGV::publisherOdom()
 {   
     geometry_msgs::TransformStamped odom_trans;
@@ -528,16 +551,17 @@ bool MyAGV::execute(double linearX, double linearY, double angularZ)
 			else
 			{
 				Offest_Count = OFFSET_COUNT;
-                std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
-                std::cout <<"imu0=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
+             //   std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
+              //  std::cout <<"imu0=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
 				imu_data.angular_velocity.x = imu_data.angular_velocity.x - Gyroscope_Xdata_Offset;
 				imu_data.angular_velocity.y = imu_data.angular_velocity.y - Gyroscope_Ydata_Offset;
 				imu_data.angular_velocity.z = imu_data.angular_velocity.z - Gyroscope_Zdata_Offset;
-                std::cout <<"imu=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
+              //  std::cout <<"imu=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
                 MahonyAHRSupdateIMU(0.0, 0.0, imu_data.angular_velocity.z, 0.0, 0.0, imu_data.linear_acceleration.z);
                 writeSpeed(linearX, linearY, angularZ);
                 publisherOdom();
                 publisherImuSensor();
+                publisherImuSensorRaw();
             }
     } 
        lastTime = currentTime;

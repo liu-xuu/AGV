@@ -10,20 +10,23 @@
 #include <signal.h>  
 #include <fstream>
 #include <vector>
+#include <string>
 #include <jsoncpp/json/json.h>
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 using namespace std;
+std::string g;
+
 class GoalSending {
  private:
 
-  ros::NodeHandle n;
+ 
   move_base_msgs::MoveBaseGoal goal;
 
   Json::Reader reader_;
   Json::Value root_;
   std::ifstream in_;
- 
+
 
   vector<double> goal_point = vector<double> (6,0);
 
@@ -34,6 +37,7 @@ class GoalSending {
  public:
     void goalPointPub();
     void openfile();
+    
  //   void DoShutdown(int sig);
 };
  

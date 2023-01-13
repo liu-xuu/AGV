@@ -6,6 +6,7 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("myagv_teleop")
+subdirs("auto_dock")
 subdirs("myagv_navigation")
 subdirs("myagv_odometry")
 subdirs("myagv_ps2")

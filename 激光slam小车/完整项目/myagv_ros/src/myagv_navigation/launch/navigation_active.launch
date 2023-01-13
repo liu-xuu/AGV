@@ -2,7 +2,7 @@
 
     <param name="use_sim_time" value="false" />
 
-    <arg name="map" default="map.yaml" />
+    <arg name="map" default="room1_map.yaml" />
 
     <node name="map_server" pkg="map_server" type="map_server" args="$(find myagv_navigation)/map/$(arg map)"/>
 

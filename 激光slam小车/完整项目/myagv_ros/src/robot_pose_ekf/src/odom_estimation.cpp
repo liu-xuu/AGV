@@ -329,6 +329,8 @@ namespace estimation
     transformer_.setTransform( meas );
   }
 
+
+   //todo sukai
   void OdomEstimation::addMeasurement(const StampedTransform& meas, const MatrixWrapper::SymmetricMatrix& covar)
   {
     // check covariance

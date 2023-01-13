@@ -15,7 +15,7 @@
 #define twoKpDef	1.0f				// (2.0f * 0.5f)	// 2 * proportional gain
 #define twoKiDef	0.0f				// (2.0f * 0.0f)	// 2 * integral gain
 
-#define OFFSET_COUNT 	40
+#define OFFSET_COUNT 	200
 
 class MyAGV
 {
@@ -29,6 +29,7 @@ public:
 	void accelerometerOffset(float gx, float gy, float gz);
 	void publisherOdom();
 	void publisherImuSensor();
+	void publisherImuSensorRaw();
 
 private:
 	bool readSpeed();
@@ -61,7 +62,7 @@ private:
 	unsigned short Offest_Count;
     sensor_msgs::Imu imu_data;
 	ros::NodeHandle n;
-	ros::Publisher pub_odom,pub_v,pub_imu,pub;
+	ros::Publisher pub_odom,pub_v,pub_imu,pub,pub_imu_raw;
 	tf::TransformBroadcaster odomBroadcaster;
 };
 

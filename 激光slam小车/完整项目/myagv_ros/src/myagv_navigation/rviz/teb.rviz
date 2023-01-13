@@ -5,7 +5,10 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Pose Array1
+        - /Odometry1/Shape1
+        - /RobotModel1/Links1
+        - /Inflated Obstacles1/Position1
+        - /Inflated Obstacles1/Orientation1
       Splitter Ratio: 0.6526610255241394
     Tree Height: 681
   - Class: rviz/Selection
@@ -69,7 +72,7 @@ Visualization Manager:
           Value: true
         Value: false
       Enabled: true
-      Keep: 100
+      Keep: 1
       Name: Odometry
       Position Tolerance: 0.10000000149011612
       Shape:
@@ -77,10 +80,10 @@ Visualization Manager:
         Axes Length: 1
         Axes Radius: 0.10000000149011612
         Color: 255; 25; 0
-        Head Length: 0.30000001192092896
-        Head Radius: 0.10000000149011612
-        Shaft Length: 1
-        Shaft Radius: 0.05000000074505806
+        Head Length: 0.10000000149011612
+        Head Radius: 0.05000000074505806
+        Shaft Length: 0.30000001192092896
+        Shaft Radius: 0.019999999552965164
         Value: Arrow
       Topic: /odom
       Unreliable: false
@@ -216,12 +219,12 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: costmap
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Inflated Obstacles
       Topic: /move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /waypoint_markers
@@ -230,6 +233,16 @@ Visualization Manager:
         {}
       Queue Size: 100
       Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: false
+      Name: Map
+      Topic: /move_base/global_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 0; 0; 0
@@ -262,11 +275,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 78.0899429321289
+      Scale: 172.6320037841797
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 4.820286273956299
-      Y: 2.682133436203003
+      X: 0.7430773973464966
+      Y: 0.2550531327724457
     Saved: ~
 Window Geometry:
   Displays:
@@ -284,5 +297,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1432
-  X: 275
+  X: 266
   Y: 25
