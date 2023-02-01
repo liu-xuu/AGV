@@ -10,7 +10,7 @@ void cmdCallback(const geometry_msgs::Twist& msg)
 	linearX = msg.linear.x;
 	linearY = msg.linear.y;
 	angularZ = msg.angular.z;
-//	std:: "cmdCallback: " << msg.linear.x << ", linearX: " << linearX << ", linearY: " << linearY <<", angularZ: " << angularZ <<std::endl;
+
 }
 
 int main(int argc, char* argv[])
@@ -26,8 +26,7 @@ int main(int argc, char* argv[])
 	ros::Subscriber sub = n.subscribe("cmd_vel", 50, cmdCallback);
 	ros::Rate loop_rate(100);
 
-	//ros::Duration(1).sleep();
-	// myAGV.execute(linearX, linearY, angularZ);
+	
 	while (ros::ok())
 	{
 		ros::spinOnce();

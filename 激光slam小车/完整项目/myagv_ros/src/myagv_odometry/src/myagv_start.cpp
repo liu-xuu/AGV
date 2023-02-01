@@ -229,9 +229,9 @@ bool MyAGV::readSpeed()
 
     
 
-    // std::cout << "Received message is: " << dt << "|" << vx << "," << vy << "," << vtheta << "|"
-    //                                       << ax << "," << ay << "," << az << "|"
-    //                                     << wx << "," << wy << "," << wz << std::endl;
+    // std::cout << "Received message is: "  << "|" << vx << "," << vy << "," << vtheta << "|"
+     //                                      << imu_data.linear_acceleration.x << "," << imu_data.linear_acceleration.y << "," << imu_data.linear_acceleration.z << "|"
+       //                                  << imu_data.angular_velocity.x << "," << imu_data.angular_velocity.y << "," << imu_data.angular_velocity.z << std::endl;
     // std::cout << "current pos is: " << x << "," << y << "," << theta << std::endl;
 
     return true;
@@ -358,12 +358,11 @@ void MyAGV::accelerometerOffset(float gx, float gy, float gz)
 }
 
 
-volatile float twoKp = twoKpDef;											// 2 * proportional gain (Kp)
-volatile float twoKi = twoKiDef;											// 2 * integral gain (Ki)
-volatile float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;					// quaternion of sensor frame relative to auxiliary frame
-volatile float integralFBx = 0.0f,  integralFBy = 0.0f, integralFBz = 0.0f;	// integral error terms scaled by Ki
+volatile float twoKp = twoKpDef;											
+volatile float twoKi = twoKiDef;											
+volatile float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;					
+volatile float integralFBx = 0.0f,  integralFBy = 0.0f, integralFBz = 0.0f;	
 
-/*¼ÆËãËÄÔªÊý*/
 void MyAGV::MahonyAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float az)
 {
 	float recipNorm;
@@ -371,48 +370,48 @@ void MyAGV::MahonyAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay
 	float halfex, halfey, halfez;
 	float qa, qb, qc;
 
-	// Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisation)
+	
 	if(!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f))) {
 
-		// Ê×ÏÈ°Ñ¼ÓËÙ¶È¼Æ²É¼¯µ½µÄÖµ(ÈýÎ¬ÏòÁ¿)×ª»¯Îªµ¥Î»ÏòÁ¿£¬¼´ÏòÁ¿³ýÒÔÄ£
+		
 		recipNorm = invSqrt(ax * ax + ay * ay + az * az);
 		ax *= recipNorm;
 		ay *= recipNorm;
 		az *= recipNorm;        
 
-		// °ÑËÄÔªÊý»»Ëã³É·½ÏòÓàÏÒÖÐµÄµÚÈýÐÐµÄÈý¸öÔªËØ
+		
 		halfvx = q1 * q3 - q0 * q2;
 		halfvy = q0 * q1 + q2 * q3;
 		halfvz = q0 * q0 - 0.5f + q3 * q3;
 	
-		// Error is sum of cross product between estimated and measured direction of gravity
+		
 		halfex = (ay * halfvz - az * halfvy);
 		halfey = (az * halfvx - ax * halfvz);
 		halfez = (ax * halfvy - ay * halfvx);
 
-		// Compute and apply integral feedback if enabled
+		
 		if(twoKi > 0.0f) {
-			integralFBx += twoKi * halfex * (1.0f / sampleFreq);	// integral error scaled by Ki
+			integralFBx += twoKi * halfex * (1.0f / sampleFreq);	
 			integralFBy += twoKi * halfey * (1.0f / sampleFreq);
 			integralFBz += twoKi * halfez * (1.0f / sampleFreq);
-			gx += integralFBx;				// apply integral feedback
+			gx += integralFBx;				
 			gy += integralFBy;
 			gz += integralFBz;
 		}
 		else {
-			integralFBx = 0.0f;				// prevent integral windup
+			integralFBx = 0.0f;				
 			integralFBy = 0.0f;
 			integralFBz = 0.0f;
 		}
 
-		// Apply proportional feedback
+	
 		gx += twoKp * halfex;
 		gy += twoKp * halfey;
 		gz += twoKp * halfez;
 	}
 	
-	// Integrate rate of change of quaternion
-	gx *= (0.5f * (1.0f / sampleFreq));		// pre-multiply common factors
+	
+	gx *= (0.5f * (1.0f / sampleFreq));		
 	gy *= (0.5f * (1.0f / sampleFreq));
 	gz *= (0.5f * (1.0f / sampleFreq));
 	qa = q0;
@@ -423,7 +422,7 @@ void MyAGV::MahonyAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay
 	q2 += (qa * gy - qb * gz + q3 * gx);
 	q3 += (qa * gz + qb * gy - qc * gx); 
 	
-	// Normalise quaternion
+	
 	recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
 	q0 *= recipNorm;
 	q1 *= recipNorm;
@@ -496,9 +495,9 @@ void MyAGV::publisherOdom()
     odom_trans.child_frame_id = "base_footprint";
 
     geometry_msgs::Quaternion odom_quat;
-    odom_quat = tf::createQuaternionMsgFromYaw(theta); // THETA
-    odom_trans.transform.translation.x = x; //X
-    odom_trans.transform.translation.y = y; //Y
+    odom_quat = tf::createQuaternionMsgFromYaw(theta); 
+    odom_trans.transform.translation.x = x; 
+    odom_trans.transform.translation.y = y; 
 
     odom_trans.transform.translation.z = 0.0;
     odom_trans.transform.rotation = odom_quat;
@@ -531,7 +530,7 @@ bool MyAGV::execute(double linearX, double linearY, double angularZ)
 
       
       currentTime = ros::Time::now();
-      // readSpeed();
+    
        double dt = (currentTime - lastTime).toSec();
               sampleFreq = 1.0f/dt;
     if (true ==  readSpeed()) 
@@ -551,7 +550,7 @@ bool MyAGV::execute(double linearX, double linearY, double angularZ)
 			else
 			{
 				Offest_Count = OFFSET_COUNT;
-             //   std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
+              //  std::cout << " g_offset=" <<Gyroscope_Xdata_Offset <<" "<< Gyroscope_Ydata_Offset <<" "<< Gyroscope_Zdata_Offset << std::endl;
               //  std::cout <<"imu0=" << imu_data.angular_velocity.x  << " "<< imu_data.angular_velocity.y << " "  <<  imu_data.angular_velocity.z   << std::endl;
 				imu_data.angular_velocity.x = imu_data.angular_velocity.x - Gyroscope_Xdata_Offset;
 				imu_data.angular_velocity.y = imu_data.angular_velocity.y - Gyroscope_Ydata_Offset;
